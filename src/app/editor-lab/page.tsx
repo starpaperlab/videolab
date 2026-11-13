@@ -14,6 +14,9 @@ export default function EditorLab() {
   const [time, setTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [notice, setNotice] = useState("");
+  const [brandColor,setBrandColor]=useState("#ffffff");
+  const [brandName,setBrandName]=useState("");
+  useEffect(()=>{try{const brands=JSON.parse(localStorage.getItem("videolab.brands.v1")||"[]");const active=localStorage.getItem("videolab.activeBrand");const b=brands.find((x:{id:string})=>x.id===active);if(b){setBrandColor(b.subtitle||"#ffffff");setBrandName(b.name||"");}}catch{}},[]);
   const video = useRef<HTMLVideoElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const dragging = useRef<string | null>(null);
@@ -64,9 +67,9 @@ export default function EditorLab() {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return <div className="vl-root">
-    <header className="vl-top"><Link href="/" className="vl-back">✦ VIDEO LAB</Link><strong>Creative Studio <span>EDICIÓN VISUAL</span></strong><div className="vl-top-actions"><button onClick={exportJson}>Exportar proyecto JSON</button><button disabled title="El renderizado MP4 se integrará en una fase posterior">Exportar MP4 · Próximamente</button></div></header>
+    <header className="vl-top"><Link href="/" className="vl-back">✦ VIDEO LAB</Link><strong>Creative Studio <span>{brandName ? "MARCA: "+brandName : "EDICIÓN VISUAL"}</span></strong><div className="vl-top-actions"><Link href="/brand-studio" className="vl-brand-link">✳ Mis marcas y referencias</Link><button onClick={exportJson}>Exportar proyecto JSON</button><button disabled title="El renderizado MP4 se integrará en una fase posterior">Exportar MP4 · Próximamente</button></div></header>
     <div className="vl-layout">
-      <aside className="vl-side"><h2>✦ Biblioteca creativa</h2><label className="vl-upload">＋ Importar video<input type="file" accept="video/*" onChange={e => importVideo(e.target.files?.[0])} /></label><p className="vl-hint">El archivo se mantiene en esta pestaña. Los textos se guardan en este navegador.</p><h3>Capas de texto</h3><button className="vl-add" onClick={() => { const id = crypto.randomUUID(); setOverlays(p => [...p, { id, text: "Nuevo texto", x: 50, y: 50, size: 32, color: "#ffffff", start: 0, end: duration || 9999 }]); setSelected(id); }}>＋ Añadir texto</button>{overlays.map(o => <button key={o.id} className={"vl-layer " + (selected === o.id ? "active" : "")} onClick={() => setSelected(o.id)}>{o.text || "Texto sin contenido"}</button>)}</aside>
+      <aside className="vl-side"><h2>✦ Biblioteca creativa</h2><label className="vl-upload">＋ Importar video<input type="file" accept="video/*" onChange={e => importVideo(e.target.files?.[0])} /></label><p className="vl-hint">El archivo se mantiene en esta pestaña. Los textos se guardan en este navegador.</p><h3>Capas de texto</h3><button className="vl-add" onClick={() => { const id = crypto.randomUUID(); setOverlays(p => [...p, { id, text: "Nuevo texto", x: 50, y: 50, size: 32, color: brandColor, start: 0, end: duration || 9999 }]); setSelected(id); }}>＋ Añadir texto</button>{overlays.map(o => <button key={o.id} className={"vl-layer " + (selected === o.id ? "active" : "")} onClick={() => setSelected(o.id)}>{o.text || "Texto sin contenido"}</button>)}</aside>
       <main className="vl-main"><div className="vl-heading"><div><h1>Diseña videos que destacan.</h1><p>Tu espacio creativo para contenido, anuncios y videos de todas tus marcas.</p></div><span>Vista 9:16</span></div>
       <div className="vl-stage-wrap"><div ref={stage} className="vl-stage" onPointerMove={move} onPointerUp={() => dragging.current = null} onPointerCancel={() => dragging.current = null}>
         {source ? <video ref={video} src={source} playsInline onLoadedMetadata={e => setDuration(e.currentTarget.duration || 0)} onTimeUpdate={e => setTime(e.currentTarget.currentTime)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} /> : <div className="vl-placeholder"><span>▶</span><p>Importa un video para empezar</p></div>}
@@ -121,6 +124,7 @@ export default function EditorLab() {
       @media(max-width:650px){.vl-side{border-right:0;border-bottom:3px solid #191321}.vl-heading{align-items:flex-start}.vl-heading span{white-space:nowrap;font-size:10px}.vl-stage-wrap{box-shadow:3px 4px 0 #191321}}
 
 
+      .vl-brand-link{display:inline-flex;align-items:center;background:#DFFF79;color:#252039;border:2px solid #252039;border-radius:30px;padding:9px 12px;font-size:12px;font-weight:900;text-decoration:none}
       /* Moxie-inspired Video Lab palette: cream retro + playful blue, lilac and turquoise */
       .vl-root{background:#fbf8f2;color:#191321}
       .vl-layout{background:#fbf8f2}
