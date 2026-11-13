@@ -609,6 +609,7 @@ export function Studio({ section }: { section: string }) {
           )}
           {section === "editor" && (
             <>
+              <div style={{ marginBottom: 18, padding: 16, background: "#ede8ff", borderRadius: 12, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}><strong>Nuevo editor visual · Fase 1</strong><span>Importa videos, reprodúcelos y edita textos sobre el lienzo.</span><Link href="/editor-lab" style={{ marginLeft: "auto", background: "#7356d9", color: "white", borderRadius: 8, padding: "10px 14px", textDecoration: "none" }}>Abrir editor funcional →</Link></div>
               <div className="editor-heading">
                 <div>
                   <span className="eyebrow">EDITOR · ESTRUCTURA INICIAL</span>
