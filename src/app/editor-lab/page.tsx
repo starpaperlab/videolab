@@ -120,6 +120,33 @@ export default function EditorLab() {
       @media(max-width:1000px){.vl-inspector{border-left:0;border-top:3px solid #191321}}
       @media(max-width:650px){.vl-side{border-right:0;border-bottom:3px solid #191321}.vl-heading{align-items:flex-start}.vl-heading span{white-space:nowrap;font-size:10px}.vl-stage-wrap{box-shadow:3px 4px 0 #191321}}
 
+
+      /* Moxie-inspired Video Lab palette: cream retro + playful blue, lilac and turquoise */
+      .vl-root{background:#fbf8f2;color:#191321}
+      .vl-layout{background:#fbf8f2}
+      .vl-main{background:radial-gradient(ellipse at 80% 0%,#e4dcff 0%,#fbf8f2 54%,#fff9f0 100%)}
+      .vl-side{background:#fffdf9}
+      .vl-top{background:#252039;border-bottom:5px solid #4768f8;box-shadow:0 5px 0 #3dd5cb}
+      .vl-top .vl-back{color:#dfff79}
+      .vl-top span{color:#f59af0}
+      .vl-heading h1{color:#252039}
+      .vl-heading h1::after{content:" ✳";color:#3dd5cb;font-weight:900}
+      .vl-heading span{background:#dfff79;color:#252039;border:2px solid #252039;box-shadow:3px 3px 0 #4768f8}
+      .vl-stage-wrap{background:repeating-radial-gradient(ellipse at 30% -10%,#e4dcff 0 3px,#fbf8f2 4px 21px);border-color:#252039;box-shadow:6px 7px 0 #4768f8}
+      .vl-stage{background:linear-gradient(155deg,#4768f8 0%,#b79bf4 43%,#e26dd6 75%,#3dd5cb 100%);border-color:#252039}
+      .vl-upload{background:#4768f8}
+      .vl-add{background:#e26dd6;color:#252039}
+      .vl-layer.active{background:#f5e8ff;box-shadow:3px 3px 0 #3dd5cb}
+      .vl-player button{background:#4768f8;color:#fff}
+      .vl-timeline{background:#fffdf9;box-shadow:5px 6px 0 #b79bf4}
+      .vl-bar.video{background:#4768f8}
+      .vl-bar.text{background:#e26dd6;color:#252039}
+      .vl-inspector input[type=range],.vl-player input{accent-color:#4768f8}
+      .vl-ai{background:#e4dcff;box-shadow:4px 4px 0 #3dd5cb}
+      .vl-ai h3{color:#4768f8}
+      .vl-top-actions button{background:#e26dd6;color:#252039;border-color:#252039;box-shadow:3px 3px 0 #3dd5cb}
+      .vl-delete{background:#fff0f9;color:#952e79}
+      .vl-heading p,.vl-hint{color:#625c73}
     `}</style>
   </div>;
 }
