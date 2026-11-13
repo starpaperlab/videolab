@@ -1,0 +1,4 @@
+Modern Web Guidance Analyzer — .
+0 findings from 33 qualified guides.
+Note: legacy-scan covers legacy patterns for 33 guides (~20% of the guidance corpus). Use 'modern-web-guidance search <topic>' for general UI/platform guidance.
+Skipped 1 docs and test file (pass --include-docs-and-tests to scan).
