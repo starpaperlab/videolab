@@ -119,6 +119,28 @@ export default function EditorLab() {
       .vl-notice{color:#a21c55}
       @media(max-width:1000px){.vl-inspector{border-left:0;border-top:3px solid #191321}}
       @media(max-width:650px){.vl-side{border-right:0;border-bottom:3px solid #191321}.vl-heading{align-items:flex-start}.vl-heading span{white-space:nowrap;font-size:10px}.vl-stage-wrap{box-shadow:3px 4px 0 #191321}}
+
+      /* Warm retro editorial refinement: cream canvas, apricot accents, violet identity */
+      .vl-root{background:#fff8ee;color:#241a29}
+      .vl-layout{background:#fff8ee}
+      .vl-main{background:radial-gradient(ellipse at 18% 4%,#ffe3ce 0%,#fff8ee 45%,#f5eafa 100%)}
+      .vl-side{background:#fffcf6;color:#241a29}
+      .vl-heading h1{color:#241a29}
+      .vl-heading span{background:#fa8d62;color:#241a29;border:2px solid #241a29;box-shadow:3px 3px 0 #241a29}
+      .vl-stage-wrap{background:repeating-linear-gradient(-8deg,#fff1de 0px,#fff1de 3px,#fff9f0 3px,#fff9f0 19px);border-color:#241a29}
+      .vl-stage{background:linear-gradient(145deg,#6e35b7 0%,#c580d5 50%,#ffab79 100%)}
+      .vl-timeline{background:#fffcf6}
+      .vl-layer{background:#fff5e9;color:#241a29}
+      .vl-layer.active{background:#f4e2ff;box-shadow:3px 3px 0 #fa8d62}
+      .vl-top-actions button,.vl-player button{background:#fa8d62;color:#241a29;border-color:#241a29;box-shadow:3px 3px 0 #241a29}
+      .vl-upload,.vl-add{background:#793dc3}
+      .vl-bar.video{background:#793dc3}
+      .vl-bar.text{background:#fa8d62;color:#241a29}
+      .vl-inspector input,.vl-inspector textarea{background:#fffcf6}
+      .vl-ai{background:#f5eafa;box-shadow:4px 4px 0 #fa8d62}
+      .vl-hint,.vl-heading p{color:#6d6070}
+      .vl-root button:not(:disabled){transition:transform .15s ease,box-shadow .15s ease}
+      .vl-root button:not(:disabled):active{transform:translate(2px,2px);box-shadow:none}
     `}</style>
   </div>;
 }
