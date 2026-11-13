@@ -1,156 +1,49 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import {useEffect,useRef,useState} from "react";
 import Link from "next/link";
-
-type Overlay = { id: string; text: string; x: number; y: number; size: number; color: string; start: number; end: number };
-const KEY = "videolab.editor.fase1";
-const initial: Overlay[] = [{ id: "demo", text: "Tu próximo gran video", x: 50, y: 35, size: 34, color: "#ffffff", start: 0, end: 9999 }];
-export default function EditorLab() {
-  const [overlays, setOverlays] = useState<Overlay[]>(initial);
-  const [selected, setSelected] = useState("demo");
-  const [source, setSource] = useState("");
-  const [fileName, setFileName] = useState("");
-  const [duration, setDuration] = useState(0);
-  const [time, setTime] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [notice, setNotice] = useState("");
-  const [brandColor,setBrandColor]=useState("#ffffff");
-  const [brandName,setBrandName]=useState("");
-  useEffect(()=>{try{const brands=JSON.parse(localStorage.getItem("videolab.brands.v1")||"[]");const active=localStorage.getItem("videolab.activeBrand");const b=brands.find((x:{id:string})=>x.id===active);if(b){setBrandColor(b.subtitle||"#ffffff");setBrandName(b.name||"");}}catch{}},[]);
-  const video = useRef<HTMLVideoElement>(null);
-  const stage = useRef<HTMLDivElement>(null);
-  const dragging = useRef<string | null>(null);
-  const selectedItem = overlays.find(x => x.id === selected);
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        if (Array.isArray(saved.overlays)) {
-          const safe = saved.overlays.filter((o: Overlay) => typeof o.id === "string" && typeof o.text === "string" && Number.isFinite(o.x) && Number.isFinite(o.y) && Number.isFinite(o.size) && typeof o.color === "string" && Number.isFinite(o.start) && Number.isFinite(o.end));
-          setOverlays(safe);
-          setSelected(safe[0]?.id ?? "");
-        }
-      }
-    } catch { setNotice("No fue posible recuperar los textos guardados."); }
-  }, []);
-  useEffect(() => {
-    try { localStorage.setItem(KEY, JSON.stringify({ overlays })); }
-    catch { /* browser storage may be disabled */ }
-  }, [overlays]);
-  useEffect(() => () => { if (source) URL.revokeObjectURL(source); }, [source]);
-  function importVideo(file?: File) {
-    if (!file) return;
-    if (!file.type.startsWith("video/")) { setNotice("Selecciona un archivo de video compatible."); return; }
-    if (source) URL.revokeObjectURL(source);
-    setSource(URL.createObjectURL(file));
-    setFileName(file.name);
-    setTime(0); setPlaying(false); setDuration(0); setNotice("");
-  }
-  function update(id: string, patch: Partial<Overlay>) { setOverlays(items => items.map(o => o.id === id ? { ...o, ...patch } : o)); }
-  function move(e: React.PointerEvent<HTMLDivElement>) {
-    if (!dragging.current || !stage.current) return;
-    const bounds = stage.current.getBoundingClientRect();
-    const x = Math.max(5, Math.min(95, (e.clientX - bounds.left) / bounds.width * 100));
-    const y = Math.max(5, Math.min(95, (e.clientY - bounds.top) / bounds.height * 100));
-    update(dragging.current, { x, y });
-  }
-  function toggle() {
-    if (!video.current) return;
-    if (video.current.paused) { video.current.play().catch(() => setNotice("El navegador no pudo reproducir este archivo.")); }
-    else video.current.pause();
-  }
-  function exportJson() {
-    const data = JSON.stringify({ version: 1, video: { fileName, note: "El video original debe adjuntarse por separado" }, overlays }, null, 2);
-    const url = URL.createObjectURL(new Blob([data], { type: "application/json" }));
-    const a = document.createElement("a"); a.href = url; a.download = "videolab-proyecto.json"; a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
-  return <div className="vl-root">
-    <header className="vl-top"><Link href="/" className="vl-back">✦ VIDEO LAB</Link><strong>Creative Studio <span>{brandName ? "MARCA: "+brandName : "EDICIÓN VISUAL"}</span></strong><div className="vl-top-actions"><Link href="/brand-studio" className="vl-brand-link">✳ Mis marcas y referencias</Link><button onClick={exportJson}>Exportar proyecto JSON</button><button disabled title="El renderizado MP4 se integrará en una fase posterior">Exportar MP4 · Próximamente</button></div></header>
-    <div className="vl-layout">
-      <aside className="vl-side"><h2>✦ Biblioteca creativa</h2><label className="vl-upload">＋ Importar video<input type="file" accept="video/*" onChange={e => importVideo(e.target.files?.[0])} /></label><p className="vl-hint">El archivo se mantiene en esta pestaña. Los textos se guardan en este navegador.</p><h3>Capas de texto</h3><button className="vl-add" onClick={() => { const id = crypto.randomUUID(); setOverlays(p => [...p, { id, text: "Nuevo texto", x: 50, y: 50, size: 32, color: brandColor, start: 0, end: duration || 9999 }]); setSelected(id); }}>＋ Añadir texto</button>{overlays.map(o => <button key={o.id} className={"vl-layer " + (selected === o.id ? "active" : "")} onClick={() => setSelected(o.id)}>{o.text || "Texto sin contenido"}</button>)}</aside>
-      <main className="vl-main"><div className="vl-heading"><div><h1>Diseña videos que destacan.</h1><p>Tu espacio creativo para contenido, anuncios y videos de todas tus marcas.</p></div><span>Vista 9:16</span></div>
-      <div className="vl-stage-wrap"><div ref={stage} className="vl-stage" onPointerMove={move} onPointerUp={() => dragging.current = null} onPointerCancel={() => dragging.current = null}>
-        {source ? <video ref={video} src={source} playsInline onLoadedMetadata={e => setDuration(e.currentTarget.duration || 0)} onTimeUpdate={e => setTime(e.currentTarget.currentTime)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} /> : <div className="vl-placeholder"><span>▶</span><p>Importa un video para empezar</p></div>}
-        {overlays.filter(o => time >= o.start && time <= o.end).map(o => <div key={o.id} role="button" tabIndex={0} aria-label={"Mover texto: " + o.text} onKeyDown={e => { if(e.key==="ArrowLeft") update(o.id,{x:Math.max(0,o.x-1)}); if(e.key==="ArrowRight") update(o.id,{x:Math.min(100,o.x+1)}); if(e.key==="ArrowUp") update(o.id,{y:Math.max(0,o.y-1)}); if(e.key==="ArrowDown") update(o.id,{y:Math.min(100,o.y+1)}); }} onPointerDown={e => { e.preventDefault(); setSelected(o.id); dragging.current = o.id; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerUp={() => dragging.current = null} className={"vl-text " + (selected === o.id ? "selected" : "")} style={{left:o.x+"%",top:o.y+"%",fontSize:o.size+"px",color:o.color}}>{o.text}</div>)}
-      </div></div>
-      <div className="vl-player"><button onClick={toggle} disabled={!source}>{playing ? "❚❚ Pausar" : "▶ Reproducir"}</button><input aria-label="Posición del video" type="range" min="0" max={duration || 1} step="0.05" value={Math.min(time,duration || 1)} disabled={!source} onChange={e => { if(video.current) video.current.currentTime=Number(e.target.value); setTime(Number(e.target.value)); }}/><span>{time.toFixed(1)} / {duration.toFixed(1)} s</span></div>
-      <section className="vl-timeline"><h2>✦ Línea de tiempo</h2><div className="vl-track"><span>VIDEO</span><div className="vl-bar video">{fileName || "Sin video importado"}</div></div>{overlays.map(o => <div className="vl-track" key={o.id}><span>TEXTO</span><button className={"vl-bar text " + (selected===o.id?"active":"")} onClick={() => setSelected(o.id)}>{o.text}</button></div>)}<p className="vl-hint">Primera versión: las capas se seleccionan aquí y sus tiempos se editan a la derecha.</p></section>
-      {notice && <p role="status" className="vl-notice">{notice}</p>}</main>
-      <aside className="vl-side vl-inspector"><h2>✦ Personalizar</h2>{selectedItem ? <><label>Texto<textarea value={selectedItem.text} onChange={e => update(selected,{text:e.target.value})}/></label><label>Tamaño <input type="range" min="12" max="72" value={selectedItem.size} onChange={e=>update(selected,{size:Number(e.target.value)})}/><span>{selectedItem.size}px</span></label><label>Color <input type="color" value={selectedItem.color} onChange={e=>update(selected,{color:e.target.value})}/></label><label>Inicio (segundos)<input type="number" min="0" step="0.1" value={selectedItem.start} onChange={e=>update(selected,{start:Math.max(0,Number(e.target.value))})}/></label><label>Final (segundos)<input type="number" min="0" step="0.1" value={selectedItem.end} onChange={e=>update(selected,{end:Math.max(0,Number(e.target.value))})}/></label><p className="vl-hint">Arrastra el texto en la vista previa para moverlo.</p><button className="vl-delete" onClick={() => {setOverlays(p=>p.filter(o=>o.id!==selected));setSelected("");}}>Eliminar texto</button></> : <p>Selecciona una capa para editarla.</p>}<div className="vl-ai"><h3>✦ Director creativo IA</h3><p>Conexión con Claude y ChatGPT en una próxima fase.</p></div></aside>
-    </div>
-    <style jsx global>{`
-      *{box-sizing:border-box}.vl-root{min-height:100vh;background:#10101a;color:#f8f5ff;font-family:Arial,sans-serif}.vl-root button,.vl-root input,.vl-root textarea{font:inherit}.vl-root button{cursor:pointer}.vl-root button:disabled{opacity:.4;cursor:not-allowed}.vl-top{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 22px;border-bottom:1px solid #353449;background:#1a1728}.vl-top span{font-size:11px;color:#e6b6f3;letter-spacing:1px}.vl-back{font-weight:800;letter-spacing:1.6px}.vl-back{color:#c4b5fd;text-decoration:none}.vl-top-actions{display:flex;gap:8px}.vl-top-actions button,.vl-player button{background:linear-gradient(115deg,#8759ee,#bd70e7);color:white;border:0;border-radius:9px;padding:10px}.vl-layout{display:grid;grid-template-columns:230px minmax(0,1fr) 240px;min-height:calc(100vh - 68px)}.vl-side{background:#1d1a2c;padding:20px;border-right:1px solid #36374b;display:flex;flex-direction:column;gap:12px}.vl-inspector{border-right:0;border-left:1px solid #36374b}.vl-side h2,.vl-timeline h2{font-size:17px;margin:0 0 10px}.vl-side h3{font-size:13px;color:#c8c4dd;margin:14px 0 0}.vl-upload,.vl-add{background:#7857e7;color:white;border:0;border-radius:10px;padding:12px;display:block;text-align:center;cursor:pointer}.vl-upload input{display:none}.vl-hint{font-size:12px;color:#b0aec6;line-height:1.5}.vl-layer{background:#302b43;border:1px solid #42445c;color:#eee;border-radius:8px;text-align:left;padding:11px;overflow:hidden;text-overflow:ellipsis}.vl-layer.active,.vl-bar.active{border-color:#eaa4c7}.vl-main{padding:24px;min-width:0;background:radial-gradient(ellipse at 50% 0%,#2c2142 0%,#131320 58%,#11111b 100%)}.vl-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.vl-heading h1{font-size:23px;margin:0}.vl-heading p{color:#aaa9c0;font-size:13px}.vl-heading span{font-size:12px;color:#c6b5ff}.vl-stage-wrap{display:flex;justify-content:center;background:#10111b;border-radius:14px;padding:16px;min-height:430px}.vl-stage{position:relative;box-shadow:0 20px 55px #0009;aspect-ratio:9/16;width:min(100%,280px);background:linear-gradient(145deg,#5e43b7 0%,#d27dba 60%,#f5b69c 100%);overflow:hidden;touch-action:none;border-radius:6px}.vl-stage video{width:100%;height:100%;object-fit:contain;background:#050505}.vl-placeholder{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff}.vl-placeholder span{font-size:55px}.vl-text{position:absolute;transform:translate(-50%,-50%);font-weight:800;text-align:center;text-shadow:0 2px 9px #0008;max-width:95%;min-width:50px;white-space:pre-wrap;overflow-wrap:anywhere;cursor:grab;user-select:none;touch-action:none;line-height:1.1;padding:4px}.vl-text.selected{outline:2px dashed #fff9}.vl-player{display:flex;gap:12px;align-items:center;margin:15px 0}.vl-player input{flex:1;min-width:40px;accent-color:#a98aff}.vl-player span{font-size:12px;white-space:nowrap}.vl-timeline{background:#202131;border:1px solid #39394c;border-radius:12px;padding:16px}.vl-track{display:flex;gap:10px;align-items:center;margin:9px 0}.vl-track span{width:50px;font-size:11px;color:#bbb}.vl-bar{flex:1;min-width:0;text-align:left;padding:10px;border-radius:6px;color:white;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vl-bar.video{background:#5769ba}.vl-bar.text{background:#a44f82;border:1px solid transparent}.vl-inspector label{display:flex;flex-direction:column;gap:7px;font-size:13px}.vl-inspector input,.vl-inspector textarea{width:100%;background:#303246;color:white;border:1px solid #56576d;border-radius:7px;padding:8px}.vl-inspector input[type=color]{height:42px;padding:3px}.vl-inspector input[type=range]{padding:0;accent-color:#a98aff}.vl-delete{border:1px solid #a95c77;background:transparent;color:#ffb3c7;border-radius:8px;padding:10px}.vl-ai{margin-top:24px;background:linear-gradient(145deg,#38234f,#292544);border-radius:12px;padding:14px}.vl-ai h3{color:#e2c6ff}.vl-notice{color:#ffcbdd}@media(max-width:1000px){.vl-layout{grid-template-columns:190px minmax(0,1fr)}.vl-inspector{grid-column:1/-1;border-left:0;border-top:1px solid #36374b}.vl-inspector label{max-width:480px}}@media(max-width:650px){.vl-top{flex-wrap:wrap}.vl-layout{display:flex;flex-direction:column}.vl-side{border-right:0;border-bottom:1px solid #36374b}.vl-main{padding:12px}.vl-stage-wrap{min-height:300px}.vl-stage{width:min(100%,245px)}.vl-top-actions{width:100%}.vl-top-actions button{font-size:12px}.vl-player{flex-wrap:wrap}.vl-player input{flex-basis:55%}}
-
-      /* Video Lab: retro editorial identity — violet, lilac, pink, ink and ivory */
-      .vl-root{background:#f7f4fc;color:#191321}
-      .vl-top{background:#191321;border-bottom:4px solid #191321;color:white;box-shadow:0 5px 0 #a87ae8}
-      .vl-top .vl-back{color:#fff;font-weight:900;letter-spacing:2px}
-      .vl-top strong{font-weight:900;letter-spacing:.4px}
-      .vl-top span{color:#f7a4d4}
-      .vl-top-actions button{border:2px solid #fff;border-radius:999px;background:#eb4ca4;box-shadow:2px 3px 0 #6e35b7;font-weight:700}
-      .vl-top-actions button:disabled{background:#494153;box-shadow:none}
-      .vl-layout{background:#f7f4fc}
-      .vl-side{background:#fff;color:#191321;border-right:3px solid #191321}
-      .vl-inspector{border-right:0;border-left:3px solid #191321}
-      .vl-side h2,.vl-timeline h2{font-weight:900;letter-spacing:-.5px;text-transform:uppercase}
-      .vl-side h3{color:#6e35b7;font-weight:900}
-      .vl-upload,.vl-add{background:#6e35b7;border:2px solid #191321;border-radius:12px;box-shadow:3px 4px 0 #191321;font-weight:800}
-      .vl-hint{color:#645a6f}
-      .vl-layer{background:#f7f4fc;color:#191321;border:2px solid #191321;border-radius:10px}
-      .vl-layer.active{background:#f7d9ec;border-color:#191321;box-shadow:3px 3px 0 #eb4ca4}
-      .vl-main{background:radial-gradient(ellipse at 30% 5%,#e7d8ff 0%,#f7f4fc 55%,#fff 100%);color:#191321}
-      .vl-heading h1{font-size:clamp(23px,3vw,38px);font-weight:900;letter-spacing:-1.4px;text-transform:uppercase}
-      .vl-heading p{color:#645a6f}
-      .vl-heading span{background:#eb4ca4;color:white;padding:8px 12px;border:2px solid #191321;border-radius:999px;font-weight:800}
-      .vl-stage-wrap{background:repeating-linear-gradient(0deg,#eee3fa 0px,#eee3fa 2px,#f7f4fc 2px,#f7f4fc 20px);border:3px solid #191321;box-shadow:6px 7px 0 #191321;border-radius:20px}
-      .vl-stage{border:3px solid #191321;border-radius:14px;box-shadow:5px 6px 0 #191321}
-      .vl-player button{background:#eb4ca4;border:2px solid #191321;border-radius:999px;box-shadow:2px 3px 0 #191321;font-weight:800}
-      .vl-player input{accent-color:#6e35b7}
-      .vl-timeline{background:#fff;border:3px solid #191321;box-shadow:5px 6px 0 #191321;border-radius:17px}
-      .vl-track span{color:#645a6f;font-weight:800}
-      .vl-bar.video{background:#6e35b7}
-      .vl-bar.text{background:#eb4ca4}
-      .vl-bar.active{outline:2px solid #191321}
-      .vl-inspector label{font-weight:700}
-      .vl-inspector input,.vl-inspector textarea{background:#fff;color:#191321;border:2px solid #191321;border-radius:9px}
-      .vl-inspector input[type=range]{accent-color:#6e35b7}
-      .vl-delete{border:2px solid #191321;background:#fff0f6;color:#9a245b;font-weight:800}
-      .vl-ai{background:#eee3fa;border:2px solid #191321;border-radius:15px;box-shadow:4px 4px 0 #a87ae8;color:#191321}
-      .vl-ai h3{color:#6e35b7}
-      .vl-notice{color:#a21c55}
-      @media(max-width:1000px){.vl-inspector{border-left:0;border-top:3px solid #191321}}
-      @media(max-width:650px){.vl-side{border-right:0;border-bottom:3px solid #191321}.vl-heading{align-items:flex-start}.vl-heading span{white-space:nowrap;font-size:10px}.vl-stage-wrap{box-shadow:3px 4px 0 #191321}}
-
-
-      .vl-brand-link{display:inline-flex;align-items:center;background:#DFFF79;color:#252039;border:2px solid #252039;border-radius:30px;padding:9px 12px;font-size:12px;font-weight:900;text-decoration:none}
-      /* Moxie-inspired Video Lab palette: cream retro + playful blue, lilac and turquoise */
-      .vl-root{background:#fbf8f2;color:#191321}
-      .vl-layout{background:#fbf8f2}
-      .vl-main{background:radial-gradient(ellipse at 80% 0%,#e4dcff 0%,#fbf8f2 54%,#fff9f0 100%)}
-      .vl-side{background:#fffdf9}
-      .vl-top{background:#252039;border-bottom:5px solid #4768f8;box-shadow:0 5px 0 #3dd5cb}
-      .vl-top .vl-back{color:#dfff79}
-      .vl-top span{color:#f59af0}
-      .vl-heading h1{color:#252039}
-      .vl-heading h1::after{content:" ✳";color:#3dd5cb;font-weight:900}
-      .vl-heading span{background:#dfff79;color:#252039;border:2px solid #252039;box-shadow:3px 3px 0 #4768f8}
-      .vl-stage-wrap{background:repeating-radial-gradient(ellipse at 30% -10%,#e4dcff 0 3px,#fbf8f2 4px 21px);border-color:#252039;box-shadow:6px 7px 0 #4768f8}
-      .vl-stage{background:linear-gradient(155deg,#4768f8 0%,#b79bf4 43%,#e26dd6 75%,#3dd5cb 100%);border-color:#252039}
-      .vl-upload{background:#4768f8}
-      .vl-add{background:#e26dd6;color:#252039}
-      .vl-layer.active{background:#f5e8ff;box-shadow:3px 3px 0 #3dd5cb}
-      .vl-player button{background:#4768f8;color:#fff}
-      .vl-timeline{background:#fffdf9;box-shadow:5px 6px 0 #b79bf4}
-      .vl-bar.video{background:#4768f8}
-      .vl-bar.text{background:#e26dd6;color:#252039}
-      .vl-inspector input[type=range],.vl-player input{accent-color:#4768f8}
-      .vl-ai{background:#e4dcff;box-shadow:4px 4px 0 #3dd5cb}
-      .vl-ai h3{color:#4768f8}
-      .vl-top-actions button{background:#e26dd6;color:#252039;border-color:#252039;box-shadow:3px 3px 0 #3dd5cb}
-      .vl-delete{background:#fff0f9;color:#952e79}
-      .vl-heading p,.vl-hint{color:#625c73}
-    `}</style>
-  </div>;
+type Clip={id:string;kind:"video"|"text"|"audio"|"image";name:string;start:number;duration:number;trim:number;color:string;text?:string;size?:number;x?:number;y?:number;opacity?:number;volume?:number;asset?:string};
+type Project={name:string;format:"9:16"|"16:9"|"1:1";background:string;clips:Clip[];duration:number};
+const KEY="videolab.pro.editor.v1",id=()=>crypto.randomUUID();
+const initial:Project={name:"Mi primer proyecto",format:"9:16",background:"#171323",duration:30,clips:[]};
+const clamp=(n:number,a:number,b:number)=>Math.min(b,Math.max(a,n));
+const fmt=(s:number)=>`${String(Math.floor(s/60)).padStart(2,"0")}:${String(Math.floor(s%60)).padStart(2,"0")}`;
+export default function Editor(){
+ const [p,setP]=useState<Project>(initial),[selected,setSelected]=useState(""),[tab,setTab]=useState<"Propiedades"|"Biblioteca"|"Texto">("Propiedades"),[time,setTime]=useState(0),[playing,setPlaying]=useState(false),[zoom,setZoom]=useState(8),[notice,setNotice]=useState(""),[ready,setReady]=useState(false),[brand,setBrand]=useState<{name:string;primary:string;subtitle:string}|null>(null);
+ const [history,setHistory]=useState<Project[]>([]),[future,setFuture]=useState<Project[]>([]);
+ const media=useRef<HTMLVideoElement>(null),file=useRef<HTMLInputElement>(null),assets=useRef<Record<string,string>>({}),drag=useRef<{id:string;x:number;start:number}|null>(null),timeline=useRef<HTMLDivElement>(null);
+ useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(KEY)||"null");if(saved?.clips)setP({...saved,clips:saved.clips.map((c:Clip)=>({...c,asset:undefined}))});const brands=JSON.parse(localStorage.getItem("videolab.brands.v1")||"[]");const b=brands.find((x:{id:string})=>x.id===localStorage.getItem("videolab.activeBrand"));if(b)setBrand(b);}catch{}setReady(true)},[]);
+ useEffect(()=>{if(ready)localStorage.setItem(KEY,JSON.stringify({...p,clips:p.clips.map(c=>({...c,asset:undefined}))}))},[p,ready]);
+ useEffect(()=>{if(!playing)return;let raf=0,last=performance.now();const tick=(now:number)=>{const dt=(now-last)/1000;last=now;setTime(t=>{if(t+dt>=p.duration){setPlaying(false);return 0;}return t+dt});raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick);return()=>cancelAnimationFrame(raf)},[playing,p.duration]);
+ const commit=(next:Project)=>{setHistory(h=>[...h.slice(-29),p]);setFuture([]);setP(next)};
+ const patchProject=(x:Partial<Project>)=>commit({...p,...x});
+ const patchClip=(cid:string,x:Partial<Clip>)=>commit({...p,clips:p.clips.map(c=>c.id===cid?{...c,...x}:c)});
+ const chosen=p.clips.find(c=>c.id===selected);
+ const add=(kind:Clip["kind"],name?:string,asset?:string,dur=5)=>{const c:Clip={id:id(),kind,name:name||({text:"Nuevo título",video:"Video",image:"Imagen",audio:"Audio"}[kind]),start:time,duration:dur,trim:0,color:brand?.subtitle||"#ffffff",text:kind==="text"?"Tu gran idea aquí":undefined,size:36,x:50,y:45,opacity:100,volume:100,asset};commit({...p,duration:Math.max(p.duration,time+dur),clips:[...p.clips,c]});setSelected(c.id);setTab("Propiedades")};
+ const importFiles=(list:FileList|null)=>{if(!list)return;const files=[...list];for(const f of files){const kind=f.type.startsWith("video/")?"video":f.type.startsWith("audio/")?"audio":f.type.startsWith("image/")?"image":null;if(!kind)continue;const url=URL.createObjectURL(f);const cid=id();assets.current[cid]=url;const c:Clip={id:cid,kind,name:f.name,start:time,duration:kind==="image"?5:15,trim:0,color:"#ffffff",x:50,y:50,size:36,opacity:100,volume:100,asset:url};setP(prev=>({...prev,duration:Math.max(prev.duration,c.start+c.duration),clips:[...prev.clips,c]}));setSelected(cid)}setNotice("Archivos cargados para esta sesión. La subida permanente a Supabase está pendiente.");setTab("Biblioteca")};
+ const undo=()=>{if(!history.length)return;setFuture(f=>[p,...f]);setP(history[history.length-1]);setHistory(h=>h.slice(0,-1))};
+ const redo=()=>{if(!future.length)return;setHistory(h=>[...h,p]);setP(future[0]);setFuture(f=>f.slice(1))};
+ const split=()=>{if(!chosen||time<=chosen.start+.05||time>=chosen.start+chosen.duration-.05)return;const left=time-chosen.start;const right:Clip={...chosen,id:id(),start:time,duration:chosen.duration-left,trim:chosen.trim+left};commit({...p,clips:p.clips.flatMap(c=>c.id===chosen.id?[{...c,duration:left},right]:[c])});setSelected(right.id)};
+ const del=()=>{if(!chosen)return;commit({...p,clips:p.clips.filter(c=>c.id!==chosen.id)});setSelected("")};
+ const duplicate=()=>{if(!chosen)return;const c={...chosen,id:id(),start:chosen.start+chosen.duration};commit({...p,duration:Math.max(p.duration,c.start+c.duration),clips:[...p.clips,c]});setSelected(c.id)};
+ const exportJson=()=>{const blob=new Blob([JSON.stringify({...p,clips:p.clips.map(c=>({...c,asset:undefined}))},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="videolab-proyecto.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ const activeVideo=p.clips.filter(c=>c.kind==="video"&&time>=c.start&&time<c.start+c.duration).at(-1);
+ const activeImage=p.clips.filter(c=>c.kind==="image"&&time>=c.start&&time<c.start+c.duration).at(-1);
+ useEffect(()=>{if(media.current&&activeVideo){const target=activeVideo.trim+Math.max(0,time-activeVideo.start);if(Math.abs(media.current.currentTime-target)>.22)media.current.currentTime=target}},[time,activeVideo]);
+ const tracks:[string,Clip["kind"]][]=[["Video","video"],["Imágenes","image"],["Texto","text"],["Audio","audio"]];
+ return <div className="ve">
+ <header className="top"><Link href="/brand-studio" className="logo">✳ VIDEO LAB</Link><div className="topcenter"><span className="connected">● Editor profesional</span><span className="projectname">{p.name}</span></div><div className="topbuttons"><Link href="/ai-center" className="outline">IA ↗</Link><button onClick={exportJson} className="pink">Guardar proyecto ↓</button><button className="outline" onClick={()=>setNotice("Exportar MP4 requiere el motor de renderizado; todavía no está conectado.")}>Exportar MP4</button><Link href="/brand-studio" className="multiply">✳ Marcas</Link></div></header>
+ <section className="upper"><div className="stagezone"><div className="stage" style={{aspectRatio:p.format.replace(":","/"),background:p.background}}>
+ {activeVideo?.asset?<video ref={media} key={activeVideo.id} src={activeVideo.asset} playsInline muted style={{width:"100%",height:"100%",objectFit:"contain"}}/>:activeImage?.asset?<img src={activeImage.asset} alt="" style={{width:"100%",height:"100%",objectFit:"contain"}}/>:<div className="placeholder"><span>✳</span><strong>Tu historia empieza aquí.</strong><small>Importa un video o añade texto</small></div>}
+ {p.clips.filter(c=>c.kind==="text"&&time>=c.start&&time<c.start+c.duration).map(c=><div key={c.id} onClick={()=>{setSelected(c.id);setTab("Propiedades")}} className={"onstage "+(selected===c.id?"sel":"")} style={{left:(c.x||50)+"%",top:(c.y||50)+"%",fontSize:c.size||36,color:c.color,opacity:(c.opacity??100)/100}}>{c.text}</div>)}
+ </div><div className="player"><button onClick={()=>setTime(0)}>↤</button><button onClick={()=>setPlaying(x=>!x)}>{playing?"❚❚":"▶"}</button><button onClick={()=>setTime(t=>clamp(t+5,0,p.duration))}>↦</button><span>{fmt(time)} / {fmt(p.duration)}</span></div></div>
+ <aside className="inspector"><div className="tabs">{(["Propiedades","Biblioteca","Texto"] as const).map(t=><button key={t} className={tab===t?"active":""} onClick={()=>setTab(t)}>{t}</button>)}</div>
+ {tab==="Propiedades"&&<div className="form"><h3>{chosen?"Elemento seleccionado":"Proyecto"}</h3>{chosen?<><label>Nombre<input value={chosen.name} onChange={e=>patchClip(chosen.id,{name:e.target.value})}/></label><div className="twocol"><label>Inicio (s)<input type="number" min="0" step=".1" value={chosen.start} onChange={e=>patchClip(chosen.id,{start:Math.max(0,+e.target.value)})}/></label><label>Duración (s)<input type="number" min=".1" step=".1" value={chosen.duration} onChange={e=>patchClip(chosen.id,{duration:Math.max(.1,+e.target.value)})}/></label></div>{chosen.kind==="text"&&<><label>Texto<textarea value={chosen.text||""} onChange={e=>patchClip(chosen.id,{text:e.target.value})}/></label><label>Color<input type="color" value={chosen.color} onChange={e=>patchClip(chosen.id,{color:e.target.value})}/></label><label>Tamaño: {chosen.size}px<input type="range" min="12" max="100" value={chosen.size||36} onChange={e=>patchClip(chosen.id,{size:+e.target.value})}/></label><label>Posición horizontal<input type="range" min="0" max="100" value={chosen.x||50} onChange={e=>patchClip(chosen.id,{x:+e.target.value})}/></label><label>Posición vertical<input type="range" min="0" max="100" value={chosen.y||50} onChange={e=>patchClip(chosen.id,{y:+e.target.value})}/></label></>}{chosen.kind==="audio"&&<label>Volumen: {chosen.volume}%<input type="range" min="0" max="100" value={chosen.volume||100} onChange={e=>patchClip(chosen.id,{volume:+e.target.value})}/></label>}<label>Opacidad: {chosen.opacity}%<input type="range" min="0" max="100" value={chosen.opacity??100} onChange={e=>patchClip(chosen.id,{opacity:+e.target.value})}/></label><div className="rowbuttons"><button onClick={duplicate}>Duplicar</button><button onClick={del}>Eliminar</button></div></>:<><label>Nombre<input value={p.name} onChange={e=>patchProject({name:e.target.value})}/></label><label>Formato<div className="formats">{(["9:16","16:9","1:1"] as const).map(f=><button key={f} className={p.format===f?"active":""} onClick={()=>patchProject({format:f})}>{f}</button>)}</div></label><label>Duración (s)<input type="number" min="1" value={p.duration} onChange={e=>patchProject({duration:Math.max(1,+e.target.value)})}/></label><label>Fondo<input type="color" value={p.background} onChange={e=>patchProject({background:e.target.value})}/></label><p className="hint">Selecciona un bloque en la línea de tiempo para editar sus propiedades.</p></>}</div>}
+ {tab==="Biblioteca"&&<div className="form"><h3>Recursos multimedia</h3><button className="import" onClick={()=>file.current?.click()}>＋ Importar videos, imágenes o audio</button><p className="hint">Los archivos se mantienen en esta sesión. Sus posiciones se guardan localmente.</p>{p.clips.filter(c=>c.kind!=="text").map(c=><button className="resource" key={c.id} onClick={()=>{setSelected(c.id);setTab("Propiedades");setTime(c.start)}}>{c.kind==="video"?"🎬":c.kind==="audio"?"♫":"▧"} {c.name}</button>)}</div>}
+ {tab==="Texto"&&<div className="form"><h3>Títulos y subtítulos</h3><button className="import" onClick={()=>add("text")}>＋ Añadir título</button><p className="hint">Los textos se pueden editar en Propiedades y mover en el tiempo.</p>{p.clips.filter(c=>c.kind==="text").map(c=><button className="resource" key={c.id} onClick={()=>{setSelected(c.id);setTab("Propiedades");setTime(c.start)}}>{c.text}</button>)}</div>}
+ </aside></section>
+ <section className="bottom"><div className="tools"><button onClick={()=>setPlaying(x=>!x)}>{playing?"❚❚ Pausar":"▶ Reproducir"}</button><button onClick={split} disabled={!chosen}>✂ Cortar aquí</button><button onClick={del} disabled={!chosen}>⌫ Borrar</button><button onClick={undo} disabled={!history.length}>↶ Deshacer</button><button onClick={redo} disabled={!future.length}>↷ Rehacer</button><button onClick={()=>add("text")}>T Texto</button><button onClick={()=>file.current?.click()}>＋ Multimedia</button><div className="zoom"><span>Zoom</span><input aria-label="Zoom línea de tiempo" type="range" min="4" max="28" value={zoom} onChange={e=>setZoom(+e.target.value)}/></div></div>
+ <div className="timeline" ref={timeline}><div className="ruler"><div className="trackname">PISTAS</div><div className="rulertime" style={{width:Math.max(p.duration*zoom,700)}}>{Array.from({length:Math.ceil(p.duration/5)+1},(_,i)=><span key={i} style={{left:i*5*zoom}}>{fmt(i*5)}</span>)}<div className="playhead" style={{left:time*zoom}}/></div></div>{tracks.map(([name,kind])=><div className="trackrow" key={kind}><div className="trackname"><b>{name}</b><button onClick={()=>kind==="text"?add("text"):file.current?.click()}>＋</button></div><div className="trackcontent" style={{width:Math.max(p.duration*zoom,700)}} onClick={e=>{if(e.target===e.currentTarget)setTime(clamp((e.clientX-e.currentTarget.getBoundingClientRect().left)/zoom,0,p.duration))}}>{p.clips.filter(c=>c.kind===kind).map(c=><button key={c.id} className={"clip "+kind+(selected===c.id?" selected":"")} style={{left:c.start*zoom,width:Math.max(c.duration*zoom,24)}} title={c.name} onPointerDown={e=>{drag.current={id:c.id,x:e.clientX,start:c.start};e.currentTarget.setPointerCapture(e.pointerId)}} onPointerMove={e=>{if(drag.current?.id!==c.id)return;const start=Math.max(0,drag.current.start+(e.clientX-drag.current.x)/zoom);setP(prev=>({...prev,clips:prev.clips.map(x=>x.id===c.id?{...x,start}:x)}))}} onPointerUp={()=>{drag.current=null}} onClick={()=>{setSelected(c.id);setTab("Propiedades")}}>{kind==="text"?"T ":"▣ "}{c.name}</button>)}<div className="playhead" style={{left:time*zoom}}/></div></div>)}</div>
+ <div className="foot"><span>✳ {brand?.name||"Sin marca seleccionada"}</span><span>{p.clips.length} elementos · {p.format} · Guardado local</span></div>{notice&&<div className="notice" role="status">{notice}<button onClick={()=>setNotice("")}>×</button></div>}
+ </section><input ref={file} type="file" accept="video/*,image/*,audio/*" multiple hidden onChange={e=>{importFiles(e.target.files);e.target.value=""}}/>
+ <style jsx global>{`*{box-sizing:border-box}body{margin:0}.ve{font-family:Arial,sans-serif;background:#FBF8F2;color:#252039;min-height:100vh}.ve button,.ve input,.ve textarea{font:inherit}.ve button{cursor:pointer}.ve button:disabled{opacity:.35;cursor:not-allowed}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#252039;color:#fff;padding:12px 18px;flex-wrap:wrap}.logo{color:#DFFF79;font-weight:950;text-decoration:none;font-size:19px}.topcenter{display:flex;align-items:center;gap:12px}.connected{font-size:11px;background:#2c7956;border-radius:25px;padding:7px 10px}.projectname{font-size:12px}.topbuttons{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.topbuttons a,.topbuttons button{font-size:12px;font-weight:800;border-radius:22px;padding:9px 12px;text-decoration:none;border:1px solid #fff}.outline{background:#fff;color:#252039}.pink{background:#E26DD6;color:#252039}.multiply{background:#DFFF79;color:#252039}.upper{display:grid;grid-template-columns:minmax(0,1fr) 290px;min-height:380px;border-bottom:3px solid #252039}.stagezone{min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px;background:repeating-linear-gradient(0deg,#FBF8F2,#FBF8F2 27px,#F4EDF9 28px)}.stage{height:290px;max-width:100%;border:3px solid #252039;border-radius:9px;position:relative;overflow:hidden;box-shadow:5px 5px 0 #B79BF4}.placeholder{height:100%;min-width:170px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;text-align:center;color:white;padding:12px}.placeholder span{font-size:60px;color:#E26DD6}.placeholder small{font-size:11px}.onstage{position:absolute;transform:translate(-50%,-50%);font-weight:900;max-width:95%;text-align:center;text-shadow:0 2px 6px #0008;cursor:pointer;overflow-wrap:anywhere}.onstage.sel{outline:2px dashed white}.player{display:flex;align-items:center;gap:9px}.player button{border:2px solid #252039;background:#fff;border-radius:20px;padding:7px 13px;font-weight:900}.player span{font-size:12px;font-weight:700}.inspector{border-left:3px solid #252039;background:white}.tabs{display:flex;border-bottom:2px solid #252039}.tabs button{flex:1;border:0;background:#fff;padding:12px 4px;font-size:11px;font-weight:800}.tabs .active{background:#E26DD6}.form{padding:15px;max-height:345px;overflow:auto}.form h3{margin:0 0 12px;font-size:15px}.form label{font-size:11px;font-weight:800;display:flex;flex-direction:column;gap:6px;margin:10px 0}.form input:not([type=color]):not([type=range]),.form textarea{width:100%;padding:9px;border:1px solid #ccc;border-radius:7px;color:#252039}.form textarea{min-height:65px}.form input[type=color]{width:100%;height:36px;border:0}.form input[type=range]{accent-color:#E26DD6}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:8px}.formats,.rowbuttons{display:flex;gap:6px}.formats button,.rowbuttons button{background:white;border:1px solid #252039;border-radius:16px;padding:7px 9px;font-size:11px}.formats button.active{background:#E26DD6}.hint{font-size:11px;color:#71687c;line-height:1.5}.import{background:#DFFF79;border:2px solid #252039;border-radius:22px;padding:12px;width:100%;font-size:12px;font-weight:900}.resource{display:block;width:100%;text-align:left;margin:7px 0;padding:10px;background:#F4EDFF;border:1px solid #D3C4E7;border-radius:8px;overflow-wrap:anywhere}.bottom{background:#fff}.tools{display:flex;gap:7px;align-items:center;padding:11px 12px;flex-wrap:wrap;border-bottom:2px solid #252039}.tools button{border:2px solid #252039;border-radius:20px;background:#fff;padding:8px 11px;font-size:11px;font-weight:800}.tools button:nth-child(2){background:#DFFF79}.tools button:nth-child(6){background:#E26DD6}.zoom{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px}.zoom input{width:85px;accent-color:#E26DD6}.timeline{overflow-x:auto;position:relative;min-height:270px}.ruler,.trackrow{display:flex;width:max-content;min-width:100%;border-bottom:1px solid #E4DDEB}.trackname{position:sticky;left:0;z-index:3;background:#F4EDFF;width:125px;min-width:125px;border-right:2px solid #252039;display:flex;align-items:center;justify-content:space-between;padding:8px;font-size:11px}.trackname button{border:1px solid #252039;background:#DFFF79;border-radius:20px}.rulertime,.trackcontent{position:relative;flex:none;background:repeating-linear-gradient(90deg,#fff 0px,#fff 39px,#F4EDF9 40px);height:44px}.rulertime{height:32px}.rulertime span{position:absolute;top:7px;font-size:9px;color:#625C73;transform:translateX(2px)}.trackcontent{height:55px}.clip{position:absolute;top:9px;height:36px;border:2px solid #252039;border-radius:7px;text-align:left;padding:0 7px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;touch-action:pan-y;font-size:11px;font-weight:800;cursor:grab}.clip.video{background:#4768F8;color:white}.clip.image{background:#DFFF79}.clip.text{background:#E26DD6}.clip.audio{background:#3DD5CB}.clip.selected{outline:3px solid #252039;outline-offset:2px}.playhead{position:absolute;top:0;bottom:0;width:2px;background:#EF3B73;pointer-events:none;z-index:2}.foot{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;background:#252039;color:#fff;font-size:11px}.notice{position:fixed;bottom:20px;right:15px;max-width:350px;background:#DFFF79;color:#252039;border:2px solid #252039;padding:15px;border-radius:12px;box-shadow:4px 4px 0 #252039;z-index:20;font-size:12px}.notice button{margin-left:10px;border:0;background:none;font-weight:900}@media(max-width:760px){.upper{grid-template-columns:1fr}.inspector{border-left:0;border-top:2px solid #252039}.stagezone{min-height:350px}.topcenter{display:none}.topbuttons{justify-content:flex-start}.form{max-height:300px}.trackname{width:95px;min-width:95px}.zoom{margin-left:0}.tools{gap:5px}.tools button{padding:7px}}`}</style></div>;
 }
