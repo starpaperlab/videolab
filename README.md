@@ -73,5 +73,9 @@ El proyecto se creó completo; no había archivos previos que modificar.
 - `npm run lint`: sin errores ni advertencias de código.
 - `npm run typecheck`: correcto.
 - `npm run build`: compilación optimizada correcta.
-- `npm run test:e2e`: 6 pruebas aprobadas, 3 escenarios ejecutados en escritorio y móvil. Comprueban creación/actualización de marca, persistencia al recargar, creación de proyecto, filtros, actualización de metadatos del editor, estados vacíos, las ocho rutas, ausencia de desbordamiento horizontal, diálogo con Escape, página no encontrada y aviso ante almacenamiento corrupto.
+- `npm run test:e2e`: 8 pruebas aprobadas, 4 escenarios ejecutados en escritorio y móvil. Comprueban creación/actualización de marca, persistencia al recargar, creación de proyecto, filtros, actualización de metadatos del editor, estados vacíos, las ocho rutas, ausencia de desbordamiento horizontal, diálogo con Escape, página no encontrada aviso ante almacenamiento corrupto y reflujo con texto al 200% o viewport de 320 px.
 - Capturas de dashboard de escritorio y móvil inspeccionadas visualmente. No se ha realizado una auditoría completa de accesibilidad ni un despliegue remoto.
+
+## Legibilidad de la interfaz
+
+La interfaz utiliza tamaños de fuente relativos (`rem`), una base de 16 px con los valores predeterminados del navegador y textos auxiliares de al menos 12 px. Se conservan las preferencias de tamaño del navegador, alturas flexibles y ajuste de líneas en controles y tarjetas. Las ilustraciones decorativas mantienen su escala de composición. La prueba de reflujo recorre las ocho secciones a 320 px de ancho y con el tamaño base de texto duplicado a 1280 px.

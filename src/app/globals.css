@@ -15,7 +15,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 1rem;
   -webkit-font-smoothing: antialiased;
 }
 button,
@@ -84,7 +84,7 @@ button {
 .wordmark {
   display: flex;
   align-items: center;
-  font-size: 26px;
+  font-size: 1.875rem;
   letter-spacing: -1.3px;
   font-weight: 750;
   margin: 0 12px 32px;
@@ -119,7 +119,7 @@ button {
   align-items: center;
   text-align: left;
   border-radius: 9px;
-  font-size: 11px;
+  font-size: 0.875rem;
   margin-bottom: 30px;
 }
 .workspace-switch > span:nth-child(2) {
@@ -129,7 +129,7 @@ button {
 .workspace-switch small {
   display: block;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 0.8125rem;
   font-weight: 400;
   margin-top: 4px;
 }
@@ -145,7 +145,7 @@ button {
   font-weight: bold;
 }
 .nav-caption {
-  font-size: 9px;
+  font-size: 0.75rem;
   color: #a1a1b0;
   letter-spacing: 1.7px;
   margin: 0 15px 13px;
@@ -161,7 +161,7 @@ nav > a {
   gap: 12px;
   padding: 13px 14px;
   color: #787989;
-  font-size: 12px;
+  font-size: 0.9375rem;
   border-radius: 7px;
   min-height: 43px;
 }
@@ -187,7 +187,7 @@ nav .nav-divider:before {
   background: var(--line);
 }
 .nav-tag {
-  font-size: 8px;
+  font-size: 0.75rem;
   background: #f1f0f7;
   color: #a09aae;
   letter-spacing: 0.6px;
@@ -212,12 +212,12 @@ nav .nav-divider:before {
   margin-bottom: 9px;
 }
 .idea-card strong {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   letter-spacing: -0.3px;
 }
 .idea-card p {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #9993aa;
   line-height: 1.7;
   margin: 7px 0 13px;
@@ -228,7 +228,7 @@ nav .nav-divider:before {
   gap: 13px;
   background: transparent;
   color: var(--purple);
-  font-size: 10px;
+  font-size: 0.8125rem;
   font-weight: 600;
   padding: 0;
 }
@@ -247,18 +247,18 @@ nav .nav-divider:before {
   color: #796854;
   display: grid;
   place-items: center;
-  font-size: 10px;
+  font-size: 0.8125rem;
   font-weight: 600;
   border: 3px solid #fff;
   box-shadow: 0 0 0 1px #ebe6df;
 }
 .account > span:nth-child(2) {
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 .account small {
   display: block;
-  font-size: 9px;
+  font-size: 0.75rem;
   color: #aaa6b1;
   margin-top: 4px;
   font-weight: 400;
@@ -286,7 +286,7 @@ nav .nav-divider:before {
   display: flex;
   align-items: center;
   gap: 13px;
-  font-size: 11px;
+  font-size: 0.875rem;
 }
 .breadcrumb > span,
 .breadcrumb > svg {
@@ -301,7 +301,7 @@ nav .nav-divider:before {
   gap: 22px;
 }
 .demo-label {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #9692a4;
   display: inline-flex;
   align-items: center;
@@ -334,7 +334,7 @@ nav .nav-divider:before {
 .user-avatar.small {
   width: 30px;
   height: 30px;
-  font-size: 9px;
+  font-size: 0.75rem;
 }
 .mobile-menu {
   display: none;
@@ -345,7 +345,7 @@ main {
   padding: 22px 38px 0;
 }
 .local-banner {
-  font-size: 10px;
+  font-size: 0.8125rem;
   display: flex;
   gap: 11px;
   align-items: center;
@@ -376,7 +376,7 @@ main {
   margin-bottom: 28px;
 }
 .eyebrow {
-  font-size: 9px;
+  font-size: 0.75rem;
   color: #a39caf;
   letter-spacing: 1.7px;
   font-weight: 600;
@@ -384,7 +384,7 @@ main {
   display: block;
 }
 h1 {
-  font-size: 29px;
+  font-size: 2rem;
   font-weight: 600;
   letter-spacing: -1.05px;
   line-height: 1.25;
@@ -393,7 +393,7 @@ h1 {
   color: #8d7fe2;
 }
 .page-heading p {
-  font-size: 12px;
+  font-size: 0.9375rem;
   color: #9793a3;
   margin-top: 9px;
   line-height: 1.6;
@@ -407,7 +407,7 @@ h1 {
   min-height: 40px;
   padding: 0 16px;
   border-radius: 7px;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -428,7 +428,7 @@ h1 {
   background: #f5f2fd;
 }
 .hero {
-  height: 289px;
+  min-height: 289px;
   background: linear-gradient(115deg, #ece8f6 0%, #eae5f3 46%, #e1dfef 100%);
   border: 1px solid #e2dcef;
   border-radius: 12px;
@@ -446,12 +446,12 @@ h1 {
   display: inline-flex;
   gap: 6px;
   align-items: center;
-  font-size: 8px;
+  font-size: 0.75rem;
   letter-spacing: 1.1px;
   color: #8b7eab;
 }
 .hero h2 {
-  font-size: 29px;
+  font-size: 2rem;
   line-height: 1.22;
   letter-spacing: -0.8px;
   margin: 15px 0 10px;
@@ -459,7 +459,7 @@ h1 {
   color: #494256;
 }
 .hero p {
-  font-size: 11px;
+  font-size: 0.875rem;
   line-height: 1.7;
   color: #9489a5;
 }
@@ -469,7 +469,7 @@ h1 {
   gap: 23px;
   background: #fff;
   color: #786a92;
-  font-size: 10px;
+  font-size: 0.8125rem;
   font-weight: 600;
   border: 1px solid #e6dfee;
   border-radius: 6px;
@@ -479,7 +479,7 @@ h1 {
 }
 .hero-footnote {
   display: none;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #a295b0;
   margin-top: 12px;
 }
@@ -524,7 +524,7 @@ h1 {
   position: absolute;
   bottom: 30px;
   left: 20px;
-  font-size: 19px;
+  font-size: 1.1875rem;
   letter-spacing: 1px;
 }
 .mini-wave {
@@ -547,7 +547,7 @@ h1 {
 .visual-card-label {
   position: relative;
   z-index: 2;
-  font-size: 5px;
+  font-size: 0.3125rem;
   letter-spacing: 1px;
   color: #526247;
 }
@@ -557,7 +557,7 @@ h1 {
   top: 112px;
   color: #fff;
   font:
-    22px/1.05 Georgia,
+    1.375rem/1.05 Georgia,
     serif;
   font-weight: 400;
   text-shadow: 0 1px 4px #52624720;
@@ -599,7 +599,7 @@ h1 {
   flex: 1;
 }
 .fake-player small {
-  font-size: 5px;
+  font-size: 0.3125rem;
 }
 .floating-pill {
   position: absolute;
@@ -610,7 +610,7 @@ h1 {
   backdrop-filter: blur(4px);
   border-radius: 20px;
   padding: 7px 11px;
-  font-size: 7px;
+  font-size: 0.4375rem;
   color: #91859c;
   z-index: 3;
   transform: rotate(-5deg);
@@ -651,7 +651,7 @@ h1 {
   padding: 10px 14px;
   border-radius: 7px;
   z-index: 5;
-  font-size: 8px;
+  font-size: 0.5rem;
   color: #9588a4;
   transform: rotate(3deg);
   box-shadow: 0 7px 15px #6c5a8115;
@@ -671,17 +671,17 @@ h1 {
   justify-content: space-between;
 }
 .stat-card > div > span {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #9993a3;
 }
 .stat-number {
-  font-size: 28px;
+  font-size: 2rem;
   letter-spacing: -1px;
   font-weight: 500;
   margin: 9px 0 6px;
 }
 .stat-card small {
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #aaa4b2;
 }
 .stat-icon {
@@ -720,7 +720,7 @@ h1 {
   gap: 12px;
 }
 .section-heading h2 {
-  font-size: 15px;
+  font-size: 1.125rem;
   letter-spacing: -0.3px;
   font-weight: 600;
   display: flex;
@@ -728,20 +728,20 @@ h1 {
   gap: 9px;
 }
 .section-heading p {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #a29aaa;
   margin-top: 6px;
 }
 .count {
   border-radius: 5px;
   background: #eeebf6;
-  font-size: 9px;
+  font-size: 0.75rem;
   padding: 3px 6px;
   font-weight: 400;
   color: #a399b8;
 }
 .text-link {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #9688b2;
   display: inline-flex;
   align-items: center;
@@ -793,20 +793,20 @@ h1 {
   flex-direction: column;
 }
 .art-copy small {
-  font-size: 4px;
+  font-size: 0.25rem;
   letter-spacing: 1px;
   opacity: 0.7;
 }
 .art-copy strong {
   font:
-    22px/1.1 Georgia,
+    1.375rem/1.1 Georgia,
     serif;
   font-weight: 400;
   letter-spacing: -0.6px;
   margin-top: 29px;
 }
 .art-copy > span {
-  font-size: 5px;
+  font-size: 0.3125rem;
   letter-spacing: 2px;
   margin-top: auto;
 }
@@ -863,7 +863,7 @@ h1 {
   transform: rotate(-8deg);
 }
 .architecture .art-copy strong {
-  font-size: 23px;
+  font-size: 1.4375rem;
 }
 .product {
   background: linear-gradient(135deg, #c7c0d8, #9f96bc);
@@ -891,7 +891,7 @@ h1 {
   box-shadow: 4px 5px 10px #69548230;
 }
 .product .art-copy strong {
-  font: 600 23px/0.95 Arial;
+  font: 600 1.4375rem/0.95 Arial;
   letter-spacing: -1px;
   margin-top: 25px;
 }
@@ -919,7 +919,7 @@ h1 {
   background: #2c2a3933;
   backdrop-filter: blur(5px);
   border: 1px solid #ffffff33;
-  font-size: 7px;
+  font-size: 0.75rem;
   padding: 4px 6px;
   border-radius: 4px;
 }
@@ -948,7 +948,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #a09aab;
 }
 .project-brand > span {
@@ -958,12 +958,12 @@ h1 {
 }
 .project-brand small {
   margin-left: auto;
-  font-size: 6px;
+  font-size: 0.75rem;
   letter-spacing: 0.7px;
   color: #b2aaba;
 }
 .project-card h3 {
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: 500;
   margin: 8px 0 14px;
   white-space: nowrap;
@@ -976,7 +976,7 @@ h1 {
   gap: 4px;
   align-items: center;
   color: #b2aaba;
-  font-size: 7px;
+  font-size: 0.75rem;
 }
 .status {
   display: inline-flex;
@@ -984,7 +984,7 @@ h1 {
   gap: 4px;
   padding: 4px 5px;
   border-radius: 4px;
-  font-size: 7px;
+  font-size: 0.75rem;
 }
 .status > span {
   width: 3px;
@@ -1036,19 +1036,19 @@ h1 {
   border-radius: 9px;
   flex-shrink: 0;
   font:
-    18px Georgia,
+    1.125rem Georgia,
     serif;
 }
 .brand-row > span:nth-child(2) {
   flex: 1;
 }
 .brand-row strong {
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 .brand-row small {
   display: block;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #aaa3b4;
   margin-top: 5px;
 }
@@ -1066,14 +1066,14 @@ h1 {
   justify-content: center;
   gap: 7px;
   color: #a69bb7;
-  font-size: 9px;
+  font-size: 0.75rem;
   padding: 10px;
 }
 .quick-section {
   margin-top: 29px;
 }
 .subtle {
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #aaa1b5;
   letter-spacing: 0.7px;
 }
@@ -1114,11 +1114,11 @@ h1 {
   background: #eff5f2;
 }
 .quick-card strong {
-  font-size: 10px;
+  font-size: 0.8125rem;
   font-weight: 500;
 }
 .quick-card p {
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #aaa2b4;
   margin-top: 5px;
   line-height: 1.5;
@@ -1132,7 +1132,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #b2aaba;
   padding: 28px 0 21px;
   margin-top: 9px;
@@ -1144,7 +1144,7 @@ h1 {
   gap: 8px;
 }
 .footer-logo {
-  font-size: 10px;
+  font-size: 0.8125rem;
   letter-spacing: -0.3px;
   color: #9e94ad;
   margin-right: 6px;
@@ -1176,7 +1176,7 @@ h1 {
   background: transparent;
   min-width: 0;
   width: 100%;
-  font-size: 12px;
+  font-size: 0.9375rem;
   color: var(--ink);
 }
 .select-filter {
@@ -1192,13 +1192,13 @@ h1 {
 .select-filter select {
   border: 0;
   background: transparent;
-  font-size: 11px;
+  font-size: 0.875rem;
   color: #84788f;
   max-width: 170px;
   padding: 5px;
 }
 .results-count {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #aaa1b5;
   margin-left: auto;
 }
@@ -1213,11 +1213,11 @@ h1 {
   padding: 26px;
 }
 .full .art-copy strong {
-  font-size: 32px;
+  font-size: 2rem;
   margin-top: 45px;
 }
 .full .art-copy small {
-  font-size: 7px;
+  font-size: 0.4375rem;
 }
 .full .art-shape {
   transform: scale(1.6) rotate(-20deg);
@@ -1227,14 +1227,14 @@ h1 {
   padding: 19px;
 }
 .full .project-card h3 {
-  font-size: 14px;
+  font-size: 1rem;
 }
 .full .project-brand {
-  font-size: 10px;
+  font-size: 0.8125rem;
 }
 .full .project-meta,
 .full .status {
-  font-size: 9px;
+  font-size: 0.75rem;
 }
 .brand-grid {
   display: grid;
@@ -1259,11 +1259,11 @@ h1 {
   width: 65px;
   height: 65px;
   border-radius: 18px;
-  font-size: 30px;
+  font-size: 2rem;
   box-shadow: 0 8px 20px #00000010;
 }
 .brand-source {
-  font-size: 9px;
+  font-size: 0.75rem;
   background: #ffffffb0;
   border-radius: 4px;
   padding: 5px 8px;
@@ -1273,11 +1273,11 @@ h1 {
   padding: 22px;
 }
 .brand-card h2 {
-  font-size: 19px;
+  font-size: 1.375rem;
   letter-spacing: -0.5px;
 }
 .brand-card p {
-  font-size: 12px;
+  font-size: 0.9375rem;
   line-height: 1.7;
   color: #9c92a7;
   min-height: 44px;
@@ -1297,12 +1297,12 @@ h1 {
   border: 1px solid #0000000c;
 }
 .brand-swatches small {
-  font-size: 11px;
+  font-size: 0.875rem;
   color: #a79caf;
   margin-left: 7px;
 }
 .brand-platforms {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #b0a4b9;
   margin-bottom: 22px;
   min-height: 14px;
@@ -1335,13 +1335,13 @@ h1 {
   margin-bottom: 5px;
 }
 .empty-state h2 {
-  font-size: 20px;
+  font-size: 1.375rem;
   font-weight: 500;
   letter-spacing: -0.5px;
 }
 .empty-state p {
   max-width: 480px;
-  font-size: 12px;
+  font-size: 0.9375rem;
   color: #9e91ae;
   line-height: 1.8;
 }
@@ -1351,7 +1351,7 @@ h1 {
   border: 1px solid #e8e2ef;
   background: #f1eef9;
   color: #a091b6;
-  font-size: 12px;
+  font-size: 0.9375rem;
   display: flex;
   gap: 12px;
   align-items: center;
@@ -1385,18 +1385,18 @@ h1 {
   gap: 3px;
 }
 .date-tile strong {
-  font-size: 22px;
+  font-size: 1.5rem;
   font-weight: 500;
 }
 .date-tile small {
-  font-size: 10px;
+  font-size: 0.8125rem;
   text-transform: uppercase;
 }
 .schedule-row h3 {
-  font-size: 14px;
+  font-size: 1rem;
 }
 .schedule-row p {
-  font-size: 11px;
+  font-size: 0.875rem;
   color: #a398ae;
   margin: 7px 0;
 }
@@ -1417,7 +1417,7 @@ h1 {
   color: #a08ebc;
 }
 .feature-card h3 {
-  font-size: 13px;
+  font-size: 1rem;
   color: #797080;
   margin: 15px 0 10px;
 }
@@ -1427,7 +1427,7 @@ h1 {
   gap: 24px;
 }
 .settings-card h2 {
-  font-size: 15px;
+  font-size: 1.125rem;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1442,7 +1442,7 @@ h1 {
   gap: 15px;
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 0.875rem;
 }
 .settings-card dt {
   color: #a295ad;
@@ -1451,7 +1451,7 @@ h1 {
   margin: 0;
 }
 .settings-card p {
-  font-size: 11px;
+  font-size: 0.875rem;
   color: #ad9fb8;
   line-height: 1.8;
   margin-top: 20px;
@@ -1463,10 +1463,10 @@ h1 {
   gap: 8px;
   padding: 15px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 0.875rem;
 }
 .pending {
-  font-size: 9px;
+  font-size: 0.75rem;
   background: #f5f2f8;
   color: #ac9cb9;
   border-radius: 4px;
@@ -1480,7 +1480,7 @@ h1 {
   margin-bottom: 20px;
 }
 .editor-heading h1 {
-  font-size: 25px;
+  font-size: 1.75rem;
 }
 .editor-warning {
   display: flex;
@@ -1489,7 +1489,7 @@ h1 {
   background: #f1edf9;
   border: 1px solid #e7e0f1;
   color: #9b8ab1;
-  font-size: 11px;
+  font-size: 0.875rem;
   border-radius: 7px;
   margin-bottom: 20px;
 }
@@ -1511,25 +1511,25 @@ h1 {
   display: flex;
   gap: 8px;
   align-items: center;
-  font-size: 12px;
+  font-size: 0.9375rem;
   font-weight: 500;
   margin-bottom: 22px;
 }
 .editor-panel p {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #ac9db7;
   line-height: 1.8;
   margin: 12px 0;
 }
 .editor-panel h3 {
-  font-size: 13px;
+  font-size: 1rem;
   margin-top: 10px;
 }
 .panel-tabs {
   display: flex;
   gap: 15px;
   border-bottom: 1px solid var(--line);
-  font-size: 9px;
+  font-size: 0.75rem;
   color: #a48eb9;
   padding-bottom: 12px;
   margin-bottom: 22px;
@@ -1546,11 +1546,11 @@ h1 {
   margin: 0 auto 12px;
 }
 .resource-placeholder strong {
-  font-size: 10px;
+  font-size: 0.8125rem;
   display: block;
 }
 .resource-placeholder p {
-  font-size: 9px;
+  font-size: 0.75rem;
 }
 .preview-area {
   background: #f0edf4;
@@ -1564,7 +1564,7 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #afa0ba;
   margin-bottom: 22px;
 }
@@ -1588,10 +1588,10 @@ h1 {
   padding: 25px;
 }
 .large .art-copy small {
-  font-size: 6px;
+  font-size: 0.375rem;
 }
 .large .art-copy strong {
-  font-size: 32px;
+  font-size: 2rem;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -1604,7 +1604,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #a091b0;
   margin-top: 18px;
 }
@@ -1619,24 +1619,24 @@ h1 {
   margin-left: auto;
 }
 .properties label {
-  font-size: 10px;
+  font-size: 0.8125rem;
 }
 .properties input,
 .properties select {
   width: 100%;
-  font-size: 10px;
+  font-size: 0.8125rem;
   padding: 9px;
   margin: 8px 0 18px;
 }
 .property-line {
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 0.8125rem;
   margin: 15px 0;
   color: #a597af;
 }
 .properties .secondary {
-  font-size: 9px;
+  font-size: 0.75rem;
   width: 100%;
   padding: 0 5px;
   margin-top: 20px;
@@ -1651,7 +1651,7 @@ h1 {
   display: flex;
   gap: 8px;
   align-items: center;
-  font-size: 11px;
+  font-size: 0.875rem;
   color: #a396af;
 }
 .timeline strong {
@@ -1659,7 +1659,7 @@ h1 {
   color: #6f617c;
 }
 .timeline > div > span {
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #b6a8c2;
   margin-left: 10px;
 }
@@ -1667,7 +1667,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   margin: 22px 0 12px;
-  font-size: 8px;
+  font-size: 0.75rem;
   color: #b8a9c4;
   border-bottom: 1px solid #eae3f0;
   padding-bottom: 9px;
@@ -1681,7 +1681,7 @@ h1 {
     #efebf5 40px
   );
   border-radius: 5px;
-  font-size: 9px;
+  font-size: 0.75rem;
   text-align: center;
   padding: 18px;
   color: #b5a5c3;
@@ -1708,18 +1708,18 @@ h1 {
   margin-bottom: 20px;
 }
 .modal-heading h2 {
-  font-size: 25px;
+  font-size: 1.75rem;
   letter-spacing: -0.6px;
   font-weight: 500;
 }
 .modal-heading .eyebrow {
-  font-size: 8px;
+  font-size: 0.75rem;
 }
 .modal-heading .icon-button {
   margin: -7px;
 }
 .form-intro {
-  font-size: 12px;
+  font-size: 0.9375rem;
   color: #a091af;
   line-height: 1.7;
   margin: 5px 0 22px;
@@ -1728,7 +1728,7 @@ h1 {
 .form-two > label,
 .properties label {
   display: block;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #887b96;
   margin-bottom: 17px;
@@ -1747,7 +1747,7 @@ h1 {
   padding: 10px 12px;
   color: #685a78;
   margin-top: 8px;
-  font-size: 12px;
+  font-size: 0.9375rem;
 }
 .modal input::placeholder,
 .modal textarea::placeholder {
@@ -1759,7 +1759,7 @@ h1 {
 }
 .modal small {
   display: block;
-  font-size: 9px;
+  font-size: 0.75rem;
   color: #b0a0bd;
   font-weight: 400;
   margin-top: 7px;
@@ -1777,7 +1777,7 @@ h1 {
   padding: 13px;
   background: #f6f3fb;
   border-radius: 7px;
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #a594b8;
   margin: 20px 0;
 }
@@ -1808,7 +1808,7 @@ h1 {
   cursor: pointer;
 }
 .color-input span {
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #a592b5;
 }
 .modal fieldset {
@@ -1817,7 +1817,7 @@ h1 {
   margin: 5px 0;
 }
 .modal legend {
-  font-size: 11px;
+  font-size: 0.875rem;
   color: #887b96;
   margin-bottom: 12px;
 }
@@ -1830,7 +1830,7 @@ h1 {
   display: flex;
   gap: 5px;
   align-items: center;
-  font-size: 10px;
+  font-size: 0.8125rem;
   color: #a08dab;
 }
 .checkboxes input {
@@ -1845,11 +1845,11 @@ h1 {
   margin: 0 auto 16px;
 }
 .notification-empty h3 {
-  font-size: 16px;
+  font-size: 1.125rem;
   color: #6e5f7d;
 }
 .notification-empty p {
-  font-size: 12px;
+  font-size: 0.9375rem;
   line-height: 1.7;
   margin: 12px 0;
 }
@@ -1857,7 +1857,7 @@ h1 {
   width: 100%;
 }
 .alert {
-  font-size: 12px;
+  font-size: 0.9375rem;
   line-height: 1.7;
   color: #9c5c40;
   background: #fff1e8;
@@ -1871,7 +1871,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  font-size: 12px;
+  font-size: 0.9375rem;
   color: #76618f;
   background: #efebf9;
   border: 1px solid #dfd4ee;
@@ -1911,13 +1911,13 @@ h1 {
 }
 @media (min-width: 1500px) {
   .hero {
-    height: 320px;
+    min-height: 320px;
   }
   .hero-content {
     padding: 35px 40px;
   }
   .hero h2 {
-    font-size: 34px;
+    font-size: 2.25rem;
   }
   .hero-footnote {
     display: block;
@@ -1946,7 +1946,7 @@ h1 {
     height: 175px;
   }
   .art-copy strong {
-    font-size: 26px;
+    font-size: 1.625rem;
   }
   .stat-card {
     padding: 22px;
@@ -1971,13 +1971,13 @@ h1 {
     padding-right: 27px;
   }
   .page-heading h1 {
-    font-size: 25px;
+    font-size: 1.75rem;
   }
   .hero-content {
     padding-left: 25px;
   }
   .hero h2 {
-    font-size: 26px;
+    font-size: 1.875rem;
   }
   .visual-card.front {
     left: 133px;
@@ -1999,7 +1999,7 @@ h1 {
     height: 29px;
   }
   .stat-card small {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .dashboard-columns {
     grid-template-columns: minmax(0, 1fr) 220px;
@@ -2015,13 +2015,13 @@ h1 {
     padding: 13px;
   }
   .art-copy strong {
-    font-size: 19px;
+    font-size: 1.1875rem;
   }
   .project-card-body {
     padding: 10px;
   }
   .project-card h3 {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .quick-card {
     padding: 13px;
@@ -2032,7 +2032,7 @@ h1 {
     height: 30px;
   }
   .quick-card p {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .editor-layout {
     grid-template-columns: 155px minmax(180px, 1fr) 175px;
@@ -2059,16 +2059,16 @@ h1 {
     height: 170px;
   }
   .art-copy strong {
-    font-size: 26px;
+    font-size: 1.625rem;
   }
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
   .stat-card small {
-    font-size: 9px;
+    font-size: 0.75rem;
   }
   .stat-card > div > span {
-    font-size: 11px;
+    font-size: 0.875rem;
   }
   .stat-icon {
     width: 36px;
@@ -2091,16 +2091,16 @@ h1 {
   }
   .floating-pill {
     left: 0;
-    font-size: 6px;
+    font-size: 0.375rem;
     top: 34px;
   }
   .floating-frame {
     left: 10px;
-    font-size: 6px;
+    font-size: 0.375rem;
     bottom: 15px;
   }
   .hero h2 {
-    font-size: 24px;
+    font-size: 1.75rem;
   }
   .hero-content {
     min-width: 60%;
@@ -2109,7 +2109,7 @@ h1 {
     display: none;
   }
   .hero p {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .quick-grid {
     grid-template-columns: 1fr;
@@ -2118,7 +2118,7 @@ h1 {
     padding: 17px;
   }
   .quick-card p {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .project-grid.full,
   .brand-grid {
@@ -2175,10 +2175,10 @@ h1 {
     line-height: 1.5;
   }
   .footer {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .footer-logo {
-    font-size: 9px;
+    font-size: 0.75rem;
   }
 }
 @media (max-width: 760px) {
@@ -2212,14 +2212,14 @@ h1 {
     gap: 14px;
   }
   .demo-label {
-    font-size: 9px;
+    font-size: 0.75rem;
   }
   .topbar-separator {
     display: none;
   }
   .breadcrumb {
     gap: 9px;
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   main {
     padding: 20px 20px 0;
@@ -2227,7 +2227,7 @@ h1 {
   .local-banner {
     flex-wrap: wrap;
     gap: 6px;
-    font-size: 9px;
+    font-size: 0.75rem;
     margin-bottom: 25px;
   }
   .local-banner > span + span {
@@ -2240,32 +2240,32 @@ h1 {
     align-items: flex-start;
   }
   .page-heading h1 {
-    font-size: 25px;
+    font-size: 1.75rem;
     max-width: 360px;
   }
   .page-heading p {
-    font-size: 11px;
+    font-size: 0.875rem;
   }
   .page-heading > .primary {
-    font-size: 10px;
+    font-size: 0.8125rem;
     padding: 0 12px;
     min-height: 37px;
   }
   .eyebrow {
-    font-size: 8px;
+    font-size: 0.75rem;
     letter-spacing: 1.4px;
   }
   .hero {
-    height: 280px;
+    min-height: 280px;
   }
   .hero-content {
     padding: 27px 24px;
   }
   .hero h2 {
-    font-size: 25px;
+    font-size: 1.75rem;
   }
   .hero p {
-    font-size: 11px;
+    font-size: 0.875rem;
   }
   .hero-visual {
     width: 43%;
@@ -2274,10 +2274,10 @@ h1 {
     left: 45px;
   }
   .floating-pill {
-    font-size: 5px;
+    font-size: 0.3125rem;
   }
   .hero-label {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .stats {
     margin: 18px 0 27px;
@@ -2287,7 +2287,7 @@ h1 {
     padding: 17px;
   }
   .stat-number {
-    font-size: 28px;
+    font-size: 2rem;
   }
   .project-grid {
     gap: 12px;
@@ -2296,10 +2296,10 @@ h1 {
     height: 152px;
   }
   .art-copy strong {
-    font-size: 23px;
+    font-size: 1.4375rem;
   }
   .project-meta {
-    font-size: 6px;
+    font-size: 0.75rem;
   }
   .brand-row {
     padding: 14px 11px;
@@ -2308,19 +2308,19 @@ h1 {
   .brand-mark {
     width: 29px;
     height: 30px;
-    font-size: 15px;
+    font-size: 1.125rem;
   }
   .brand-row strong {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .brand-row small {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .brand-row > svg {
     display: none;
   }
   .section-heading h2 {
-    font-size: 15px;
+    font-size: 1.125rem;
   }
   .quick-section {
     margin-top: 24px;
@@ -2339,7 +2339,7 @@ h1 {
     padding: 22px;
   }
   .brand-card h2 {
-    font-size: 18px;
+    font-size: 1.25rem;
   }
   .schedule-row {
     gap: 12px;
@@ -2359,10 +2359,10 @@ h1 {
     width: 135px;
   }
   .preview-toolbar {
-    font-size: 6px;
+    font-size: 0.75rem;
   }
   .preview-note {
-    font-size: 6px;
+    font-size: 0.75rem;
   }
   .editor-panel {
     padding: 15px 10px;
@@ -2400,25 +2400,25 @@ h1 {
     gap: 16px;
   }
   .page-heading h1 {
-    font-size: 27px;
+    font-size: 1.875rem;
   }
   .page-heading > .primary {
-    font-size: 11px;
+    font-size: 0.875rem;
     min-height: 39px;
   }
   .hero {
-    height: 300px;
+    min-height: 300px;
   }
   .hero-content {
     padding: 25px 20px;
     min-width: 100%;
   }
   .hero h2 {
-    font-size: 23px;
+    font-size: 1.625rem;
     max-width: 210px;
   }
   .hero p {
-    font-size: 10px;
+    font-size: 0.8125rem;
     max-width: 175px;
   }
   .hero-visual {
@@ -2436,7 +2436,7 @@ h1 {
     padding: 8px;
   }
   .visual-card.front > strong {
-    font-size: 18px;
+    font-size: 1.125rem;
     top: 92px;
     left: 10px;
   }
@@ -2447,11 +2447,11 @@ h1 {
     height: 150px;
   }
   .visual-card.back > span {
-    font-size: 15px;
+    font-size: 0.9375rem;
     left: 9px;
   }
   .visual-card-label {
-    font-size: 4px;
+    font-size: 0.25rem;
   }
   .sculpture {
     width: 90px;
@@ -2462,12 +2462,12 @@ h1 {
     display: none;
   }
   .hero-label {
-    font-size: 6px;
+    font-size: 0.75rem;
   }
   .hero-button {
     position: relative;
     z-index: 3;
-    font-size: 9px;
+    font-size: 0.75rem;
     gap: 12px;
     padding: 10px;
   }
@@ -2478,10 +2478,10 @@ h1 {
     padding: 14px;
   }
   .stat-card > div > span {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .stat-card small {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .stat-icon {
     width: 27px;
@@ -2491,7 +2491,7 @@ h1 {
     width: 16px;
   }
   .stat-number {
-    font-size: 27px;
+    font-size: 1.875rem;
   }
   .project-grid,
   .project-grid.full {
@@ -2505,31 +2505,31 @@ h1 {
     padding: 24px;
   }
   .art-copy small {
-    font-size: 7px;
+    font-size: 0.4375rem;
   }
   .art-copy strong {
-    font-size: 33px;
+    font-size: 2.0625rem;
     margin-top: 30px;
   }
   .art-copy > span {
-    font-size: 7px;
+    font-size: 0.4375rem;
   }
   .project-card-body {
     padding: 18px;
   }
   .project-card h3 {
-    font-size: 14px;
+    font-size: 1rem;
     margin-bottom: 17px;
   }
   .project-brand {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .project-meta,
   .status {
-    font-size: 9px;
+    font-size: 0.75rem;
   }
   .format-badge {
-    font-size: 9px;
+    font-size: 0.75rem;
     padding: 5px 7px;
   }
   .project-play {
@@ -2542,10 +2542,10 @@ h1 {
     padding: 17px;
   }
   .brand-row strong {
-    font-size: 12px;
+    font-size: 0.9375rem;
   }
   .brand-row small {
-    font-size: 9px;
+    font-size: 0.75rem;
   }
   .brand-row > svg {
     display: block;
@@ -2553,7 +2553,7 @@ h1 {
   .brand-mark {
     width: 34px;
     height: 34px;
-    font-size: 19px;
+    font-size: 1.375rem;
   }
   .brand-grid {
     grid-template-columns: 1fr;
@@ -2562,7 +2562,7 @@ h1 {
     height: 130px;
   }
   .quick-section .subtle {
-    font-size: 6px;
+    font-size: 0.75rem;
   }
   .filters .select-filter {
     flex: 1;
@@ -2570,7 +2570,7 @@ h1 {
     padding: 7px;
   }
   .select-filter select {
-    font-size: 9px;
+    font-size: 0.75rem;
     max-width: 130px;
     width: 100%;
   }
@@ -2585,7 +2585,7 @@ h1 {
     flex-wrap: wrap;
   }
   .editor-heading h1 {
-    font-size: 23px;
+    font-size: 1.625rem;
   }
   .editor-layout {
     grid-template-columns: 1fr;
@@ -2603,10 +2603,10 @@ h1 {
     width: 150px;
   }
   .preview-toolbar {
-    font-size: 8px;
+    font-size: 0.75rem;
   }
   .preview-note {
-    font-size: 8px;
+    font-size: 0.75rem;
   }
   .properties {
     gap: 10px;
@@ -2618,16 +2618,16 @@ h1 {
     padding: 15px;
   }
   .timeline-ruler {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .schedule-card {
     padding: 20px;
   }
   .schedule-row h3 {
-    font-size: 12px;
+    font-size: 0.9375rem;
   }
   .schedule-row p {
-    font-size: 9px;
+    font-size: 0.75rem;
     line-height: 1.7;
   }
   .schedule-row > div:nth-child(2) {
@@ -2637,16 +2637,16 @@ h1 {
     flex-wrap: wrap;
   }
   .settings-card dl > div {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .integration-row {
-    font-size: 10px;
+    font-size: 0.8125rem;
   }
   .feature-card h3 {
-    font-size: 11px;
+    font-size: 0.875rem;
   }
   .feature-card .subtle {
-    font-size: 7px;
+    font-size: 0.75rem;
   }
   .form-two {
     grid-template-columns: 1fr;
@@ -2655,16 +2655,16 @@ h1 {
     padding: 23px;
   }
   .modal-heading h2 {
-    font-size: 23px;
+    font-size: 1.625rem;
   }
   .empty-state {
     padding: 45px 20px;
   }
   .empty-state h2 {
-    font-size: 19px;
+    font-size: 1.375rem;
   }
   .empty-state p {
-    font-size: 11px;
+    font-size: 0.875rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2710,4 +2710,337 @@ h1 {
 }
 .status.scheduled {
   color: #5f806b;
+}
+
+/* Readable interface typography; the root size remains controlled by the browser. */
+body {
+  line-height: 1.5;
+}
+:root {
+  --sidebar: 16.5rem;
+}
+.sidebar {
+  flex-shrink: 0;
+}
+nav > a {
+  min-height: 2.875rem;
+}
+.workspace-switch {
+  min-height: 4rem;
+}
+.workspace-switch > span:nth-child(2),
+.account > span:nth-child(2) {
+  min-width: 0;
+}
+.topbar {
+  height: auto;
+  min-height: 4.75rem;
+  padding-block: 0.75rem;
+  gap: 1rem;
+}
+.page-heading,
+.section-heading {
+  flex-wrap: wrap;
+}
+.page-heading p,
+.hero p,
+.empty-state p {
+  max-width: 65ch;
+}
+.primary,
+.secondary {
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  white-space: normal;
+  text-align: center;
+}
+.hero-content {
+  padding-block: 2rem;
+}
+.hero h2 {
+  text-wrap: balance;
+}
+.hero-button {
+  min-height: 2.75rem;
+}
+.stats {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+.stat-card {
+  gap: 0.75rem;
+}
+.stat-card > div {
+  min-width: 0;
+}
+.project-meta {
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+.project-card h3 {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.brand-row {
+  gap: 0.75rem;
+}
+.brand-row > span:nth-child(2) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.quick-card {
+  align-items: flex-start;
+}
+.quick-card > div {
+  min-width: 0;
+}
+.quick-card > svg {
+  margin-block: auto;
+}
+.filters {
+  flex-wrap: wrap;
+}
+.select-filter {
+  min-width: 0;
+}
+.select-filter select {
+  max-width: 100%;
+}
+.results-count {
+  white-space: nowrap;
+}
+.footer {
+  flex-wrap: wrap;
+}
+.footer > span {
+  flex-wrap: wrap;
+}
+.editor-layout {
+  grid-template-columns: minmax(10rem, 1fr) minmax(0, 2.5fr) minmax(
+      12rem,
+      1.2fr
+    );
+}
+.editor-panel,
+.preview-area {
+  min-width: 0;
+}
+.preview-toolbar,
+.preview-controls {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.timeline {
+  min-width: 0;
+}
+.timeline-track {
+  overflow-wrap: anywhere;
+}
+.modal input:not([type="checkbox"]):not([type="color"]),
+.modal select,
+.modal textarea {
+  font-size: 1rem;
+  min-height: 2.75rem;
+}
+.color-input {
+  height: auto;
+  min-height: 2.75rem;
+  flex-wrap: wrap;
+}
+.modal form > label,
+.form-two > label,
+.modal legend {
+  font-size: 0.875rem;
+}
+.modal small {
+  font-size: 0.8125rem;
+}
+
+.integration-row,
+.property-line,
+.settings-card dl > div {
+  flex-wrap: wrap;
+}
+.notice,
+.alert {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 75em) {
+  :root {
+    --sidebar: 15.25rem;
+  }
+  .dashboard-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .editor-layout {
+    grid-template-columns: 10rem minmax(0, 1fr);
+  }
+  .properties {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .properties h2,
+  .properties p {
+    width: 100%;
+  }
+  .properties label {
+    flex: 1;
+    min-width: 8rem;
+  }
+  .properties .secondary {
+    width: auto;
+  }
+}
+@media (max-width: 62.5em) {
+  .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  }
+  .brand-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .topbar-actions {
+    gap: 0.75rem;
+  }
+  .hero-visual {
+    opacity: 0.55;
+  }
+  .hero-content {
+    min-width: 65%;
+  }
+  .hero h2 {
+    max-width: 20ch;
+  }
+}
+@media (max-width: 47.5em) {
+  :root {
+    --sidebar: 0px;
+  }
+  .sidebar {
+    width: min(18rem, 90vw);
+  }
+  .topbar {
+    position: static;
+    padding-inline: 1rem;
+  }
+  .topbar .demo-label {
+    display: none;
+  }
+  main {
+    padding-inline: 1rem;
+  }
+  .breadcrumb {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .hero-content {
+    min-width: 100%;
+  }
+  .hero h2 {
+    max-width: 18ch;
+  }
+  .hero-visual {
+    width: 35%;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .hero p {
+    max-width: 25ch;
+  }
+  .stats {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  }
+  .project-grid.full {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .editor-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .editor-panel:not(.properties) {
+    display: none;
+  }
+  .preview-note {
+    margin-left: 0;
+  }
+  .feature-grid,
+  .settings-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .feature-card {
+    flex-wrap: wrap;
+  }
+  .form-two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 30em) {
+  .page-heading h1 {
+    font-size: 1.875rem;
+  }
+  .hero {
+    min-height: 0;
+  }
+  .hero-content {
+    padding: 1.5rem 1.25rem;
+  }
+  .hero h2 {
+    font-size: 1.75rem;
+    max-width: none;
+  }
+  .hero p {
+    max-width: none;
+  }
+  .hero-visual {
+    display: none;
+  }
+  .hero-label {
+    font-size: 0.75rem;
+  }
+  .select-filter {
+    flex: 1 1 100%;
+  }
+  .select-filter select {
+    font-size: 0.875rem;
+    width: 100%;
+  }
+  .quick-section .section-heading {
+    align-items: flex-start;
+  }
+  .schedule-row .secondary {
+    margin-left: 0;
+  }
+  .schedule-row > div:nth-child(2) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .modal {
+    padding: 1.25rem;
+  }
+  .form-actions {
+    flex-wrap: wrap;
+  }
+}
+/* Feature cards reflow when browser text preferences need more room. */
+.feature-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+.feature-card {
+  min-width: 0;
+}
+.feature-card h3 {
+  overflow-wrap: anywhere;
+}
+.topbar {
+  flex-wrap: wrap;
+}
+.breadcrumb {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.breadcrumb strong {
+  overflow-wrap: anywhere;
+}
+.topbar-actions {
+  margin-left: auto;
+  flex-wrap: wrap;
 }

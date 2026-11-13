@@ -137,3 +137,41 @@ test("corrupt local data reports an error and recovers with examples", async ({
     page.getByRole("heading", { name: "Hagamos algo extraordinario." }),
   ).toBeVisible();
 });
+
+test("readable text reflows on narrow screens and with enlarged browser text", async ({
+  page,
+}) => {
+  for (const variant of [
+    { width: 320, root: 16 },
+    { width: 1280, root: 32 },
+  ]) {
+    await page.setViewportSize({ width: variant.width, height: 900 });
+    for (const route of [
+      "",
+      "proyectos",
+      "editor",
+      "biblioteca",
+      "marcas",
+      "calendario",
+      "automatizaciones",
+      "configuracion",
+    ]) {
+      await page.goto("/" + route);
+      await expect(page.locator("h1")).toBeVisible();
+      await page.addStyleTag({
+        content: `html {font-size: ${variant.root}px !important;}`,
+      });
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        `${route} at ${variant.width}px, root ${variant.root}px`,
+      ).toBe(true);
+      expect(
+        await page
+          .locator("body")
+          .evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
+      ).toBeGreaterThanOrEqual(variant.root);
+    }
+  }
+});
